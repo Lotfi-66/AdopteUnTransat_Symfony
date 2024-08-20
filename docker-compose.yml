@@ -1,0 +1,79 @@
+version: '3.8'
+
+networks:
+  transatnet:
+
+volumes:
+  # Changez ici le nom du volume pour correspondre à ce qui est utilisé dans le service transatmongo
+  mongotransatdb: # ou bien renommez cela en "transatdb" si vous préférez
+    driver: local
+
+services:
+
+  # container php
+  transatphp:
+    container_name: phptransat
+    build:
+      context: ./php
+    ports:
+      - "9000:9000"
+    environment:
+      TZ: UTC
+      APP_PATH: "/var/www/symfo"
+    volumes:
+      - ./app:/var/www/symfo
+    networks:
+      - transatnet
+    depends_on:
+      - transatmongo
+
+  # container web
+  transatnginx:
+    container_name: nginxtransat
+    image: nginx:stable-alpine
+    ports:
+      - '80:80'
+      - '442:443'
+    volumes:
+      - ./app:/var/www/symfo
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./logs:/var/log/nginx
+    environment:
+      TZ: UTC
+    depends_on:
+      - transatphp
+      - transatmongo
+      - transatnode
+    networks:
+      - transatnet
+
+  # container node
+  transatnode:
+    container_name: nodetransat
+    build:
+      context: ./node
+    volumes:
+      - ./app:/var/www/symfo
+    environment:
+      TZ: UTC
+    depends_on:
+      - transatphp
+    networks:
+      - transatnet
+    tty: true
+
+  # container mongo
+  transatmongo:
+    container_name: mongotransat
+    image: mongo:latest
+    ports:
+      - '27018:27017'
+    volumes:
+      - mongotransatdb:/data/db # Ceci doit correspondre au volume déclaré en haut
+      - ./datascript:/datascript
+    environment:
+      TZ: UTC
+      MONGODB_INITDB_ROOT_USERNAME: transatadmin
+      MONGODB_INITDB_ROOT_PASSWORD: transat2024
+    networks:
+      - transatnet
