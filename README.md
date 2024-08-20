@@ -44,7 +44,7 @@ Ce document décrit les étapes pour installer et configurer le projet Transat.
     Si vous utilisez MongoDB, installez le bundle correspondant :
 
     ```bash
-    docker exec -it phpvideo composer req doctrine/mongodb-odm-bundle
+    docker exec -it phptransat composer req doctrine/mongodb-odm-bundle
     ```
 
 6. **Résolution des problèmes de permissions**
