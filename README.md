@@ -15,7 +15,7 @@ Ce document décrit les étapes pour installer et configurer le projet Transat.
 
    ```bash
    docker-compose up -d
-## Facultatif
+## Configuration
 2. **Créer un projet Symfony**
 
    À l'intérieur du conteneur phptransat, créez un nouveau projet Symfony :
