@@ -54,3 +54,7 @@ Ce document décrit les étapes pour installer et configurer le projet Transat.
     ```bash
     sudo chmod -R 777 ./
     ```
+
+    ```bash
+    php bin/console cache:clear
+    ```

@@ -1,5 +1,6 @@
-# config/packages/doctrine_mongodb.yaml
 doctrine_mongodb:
+    auto_generate_proxy_classes: true
+    auto_generate_hydrator_classes: true
     connections:
         default:
             server: '%env(resolve:MONGODB_URL)%'
@@ -10,11 +11,8 @@ doctrine_mongodb:
             auto_mapping: true
             mappings:
                 App:
-                    is_bundle: false
-                    type: attribute  # Utilisez "attribute" pour les attributs PHP
                     dir: '%kernel.project_dir%/src/Document'
                     prefix: 'App\Document'
-                    alias: App
 
 when@prod:
     doctrine_mongodb:
