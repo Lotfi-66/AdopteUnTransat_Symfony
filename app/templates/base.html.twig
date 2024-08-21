@@ -1,27 +1,19 @@
-{# <h1>Liste des Transats</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Ligne</th>
-            <th>Colonne</th>
-            <th>Disponible</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for transat in transats %}
-            <tr>
-                <td>{{ transat.ligne }}</td>
-                <td>{{ transat.colonne }}</td>
-                <td>{{ transat.disponible ? 'Oui' : 'Non' }}</td>
-                <td>
-                    {% if transat.disponible %}
-                        <a href="{{ path('transat_reserver', {'id': transat.id}) }}">Réserver</a>
-                    {% else %}
-                        Indisponible
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table> #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Réservation de Transats{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Réservation de Transats</h1>
+    </header>
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Transat Réservations</p>
+    </footer>
+</body>
+</html>
