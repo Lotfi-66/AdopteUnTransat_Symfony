@@ -1,38 +1,61 @@
-<?php 
-
+<?php
 namespace App\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-/**
- * @MongoDB\Document
- */
+#[ODM\Document]
 class Transat
 {
-    /**
-     * @MongoDB\Id
-     */
+    #[ODM\Id]
     private $id;
 
-    /**
-     * @MongoDB\Field(type="int")
-     */
-    private $ligne;
+    #[ODM\Field(type: "string")]
+    private $nom;
 
-    /**
-     * @MongoDB\Field(type="int")
-     */
-    private $colonne;
-
-    /**
-     * @MongoDB\Field(type="bool")
-     */
+    #[ODM\Field(type: "boolean")]
     private $disponible;
 
-    /**
-     * @MongoDB\Field(type="date", nullable=true)
-     */
+    #[ODM\Field(type: "date", nullable: true)]
     private $heureDeLocation;
 
-    // Ajoutez les getters et setters ici
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function isDisponible(): ?bool
+    {
+        return $this->disponible;
+    }
+
+    public function setDisponible(bool $disponible): self
+    {
+        $this->disponible = $disponible;
+
+        return $this;
+    }
+
+    public function getHeureDeLocation(): ?\DateTime
+    {
+        return $this->heureDeLocation;
+    }
+
+    public function setHeureDeLocation(?\DateTime $heureDeLocation): self
+    {
+        $this->heureDeLocation = $heureDeLocation;
+
+        return $this;
+    }
 }
